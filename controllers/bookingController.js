@@ -4,7 +4,6 @@ const User = require('../models/userModel');
 const Booking = require('../models/bookingModel');
 const catchAsync = require('../utils/catchAsync');
 const factory = require('./handlerFactory');
-const { sign } = require('jsonwebtoken');
 
 exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   //Get the currently booked the tour
@@ -20,7 +19,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
     cancel_url: `${req.protocol}://${req.get('host')}/tour/${tour.slug}`,
     customer_email: req.user.email,
     client_reference_id: req.params.tourID,
-    line_items: [
+    display_items: [
       {
         name: `${tour.name} Tour`,
         description: tour.summary,
